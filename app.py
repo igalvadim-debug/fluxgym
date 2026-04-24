@@ -17,13 +17,17 @@ from transformers import AutoProcessor, AutoModelForCausalLM
 from gradio_logsview import LogsView, LogsViewRunner
 from huggingface_hub import hf_hub_download, HfApi
 from library import flux_train_utils, huggingface_util
+import os
 from argparse import Namespace
 import train_network
 import toml
 import re
 MAX_IMAGES = 150
 
-with open('models.yaml', 'r') as file:
+# Get the directory where app.py is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+with open(os.path.join(script_dir, 'models.yaml'), 'r') as file:
     models = yaml.safe_load(file)
 
 def readme(base_model, lora_name, instance_prompt, sample_prompts):
